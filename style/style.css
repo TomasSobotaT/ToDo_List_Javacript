@@ -1,0 +1,24 @@
+#textPoznamky{
+background-color: #33FFE6;
+width: 200px;
+height: 200px;
+display: flex;
+text-align: center;;
+border-radius: 15px;
+padding: 10px;
+}
+
+#barvaPoznamky{
+    border-radius: 5px;
+}
+
+
+.prvek{
+    border-radius: 5px;
+     overflow-wrap: anywhere;
+    }
+
+.prvek:hover{
+        filter: brightness(105%);
+       box-shadow: 5px 5px 5px black;
+        }

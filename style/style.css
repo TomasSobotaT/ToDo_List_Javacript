@@ -6,7 +6,7 @@ display: flex;
 text-align: center;;
 border-radius: 15px;
 padding: 10px;
-}
+}s
 
 #barvaPoznamky{
     border-radius: 5px;
@@ -16,9 +16,20 @@ padding: 10px;
 .prvek{
     border-radius: 5px;
      overflow-wrap: anywhere;
+    
     }
 
 .prvek:hover{
         filter: brightness(105%);
        box-shadow: 5px 5px 5px black;
         }
+
+
+.smazPrvek{
+    background-image: url("../img/close.png");
+    background-size: cover;
+}
+
+.smazPrvek:hover{
+   transform: scale(110%);
+}

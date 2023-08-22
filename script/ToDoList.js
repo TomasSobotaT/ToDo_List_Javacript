@@ -14,13 +14,13 @@ class ToDoList {
 
         const zaznamyZeStorage = localStorage.getItem("zaznamyProToDo");
         this.seznamUkolu = zaznamyZeStorage ? JSON.parse(zaznamyZeStorage) : [];
-        
-        if (this.seznamUkolu.length>0) {
-        
+
+        if (this.seznamUkolu.length > 0) {
+
             this._vykresliNastenku(this.seznamUkolu);
         }
-        else{
-           
+        else {
+
             this._vykresliPrazdnySeznam();
         }
 
@@ -32,7 +32,11 @@ class ToDoList {
     // přidá poznámku na nástěnku
     _pridejPoznamku() {
 
+
         this.pridejButton.onclick = () => {
+
+            document.getElementById("textPoznamky").placeholder = "...napište nový úkol...";
+            document.getElementById("textPoznamky").value = "";
 
             this.textPoznamky = document.getElementById("textPoznamky").value;
             this.barvaPoznamky = document.getElementById("barvaPoznamky").value;
@@ -41,38 +45,46 @@ class ToDoList {
             this.seznamUkolu.push(task);
             this._vykresliNastenku(this.seznamUkolu);
             localStorage.setItem("zaznamyProToDo", JSON.stringify(this.seznamUkolu));
-
         }
     }
-    
+
     //smaže po potvrzení všechny poznámky
-    _smazVse(){
+    _smazVse() {
         this.smazButton.onclick = () => {
 
-            if(confirm("Chcete oprvdu smazat všechny záznamy?"))
-            {
+            if (confirm("Chcete oprvdu smazat všechny záznamy?")) {
 
                 {
-                    localStorage.clear();
-                    this.nastenka.innerHTML = "";
                     this.seznamUkolu = [];
+                    localStorage.setItem("zaznamyProToDo", JSON.stringify(this.seznamUkolu));
                     this._vykresliPrazdnySeznam();
+                    document.getElementById("textPoznamky").placeholder = "...napište nový úkol...";
+
                 }
             }
         }
     }
 
     //smaže poznamku
-    _smazPoznamku(id){
+    _smazPoznamku(id) {
 
-        this.seznamUkolu = this.seznamUkolu.filter(task=>task.id !=id)
-        this._vykresliNastenku(this.seznamUkolu);
+        this.seznamUkolu = this.seznamUkolu.filter(task => task.id != id)
+
+        if (this.seznamUkolu.length > 0) {  
+            this._vykresliNastenku(this.seznamUkolu);
+
+        }
+        else {
+            this._vykresliPrazdnySeznam();
+        }
+
         localStorage.setItem("zaznamyProToDo", JSON.stringify(this.seznamUkolu));
 
     }
 
     //vykreslní se když je seznam ukolu prazdny
-    _vykresliPrazdnySeznam(){
+    _vykresliPrazdnySeznam() {
+        this.nastenka.innerHTML = "";
 
         let prvek = document.createElement("div");
         prvek.style.textAlign = "center";
@@ -99,9 +111,6 @@ class ToDoList {
             prvek.style.justifyContent = "center"
             prvek.contentEditable = true;
             prvek.style.border = "1px solid black";
-         
-    
-
             prvek.style.width = "200px";
             prvek.style.height = "200px"
             prvek.style.backgroundColor = task.barva.toString();
@@ -109,23 +118,31 @@ class ToDoList {
             this.nastenka.appendChild(prvek);
 
             let smazPrvek = document.createElement("div");
+            smazPrvek.className = "smazPrvek"
             smazPrvek.style.display = "flex";
             smazPrvek.style.alignItems = "center";
             smazPrvek.style.justifyContent = "center";
-            smazPrvek.style.border = "1px solid black";
+            // smazPrvek.style.border = "1px solid black";
+            smazPrvek.contentEditable = false;
             smazPrvek.style.position = "absolute";
             smazPrvek.style.top = "0";
             smazPrvek.style.right = "0";
             smazPrvek.textContent = "";
             smazPrvek.style.width = "20px";
             smazPrvek.style.height = "20px"
-            smazPrvek.textContent = "X";
+            // smazPrvek.textContent = "X";
             smazPrvek.style.cursor = "pointer";
             prvek.appendChild(smazPrvek);
 
             smazPrvek.addEventListener("click", () => {
                 this._smazPoznamku(task.id);
             });
+
+            prvek.addEventListener("blur", () => {
+                task.text = prvek.innerText;
+                localStorage.setItem("zaznamyProToDo", JSON.stringify(this.seznamUkolu));
+            });
+
         }
     }
 }

@@ -35,8 +35,7 @@ class ToDoList {
 
         this.pridejButton.onclick = () => {
 
-            document.getElementById("textPoznamky").placeholder = "...napište nový úkol...";
-            document.getElementById("textPoznamky").value = "";
+          
 
             this.textPoznamky = document.getElementById("textPoznamky").value;
             this.barvaPoznamky = document.getElementById("barvaPoznamky").value;
@@ -45,6 +44,9 @@ class ToDoList {
             this.seznamUkolu.push(task);
             this._vykresliNastenku(this.seznamUkolu);
             localStorage.setItem("zaznamyProToDo", JSON.stringify(this.seznamUkolu));
+
+            document.getElementById("textPoznamky").placeholder = "...napište nový úkol...";
+            document.getElementById("textPoznamky").value = "";
         }
     }
 

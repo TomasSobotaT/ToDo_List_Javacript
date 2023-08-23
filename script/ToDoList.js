@@ -27,7 +27,28 @@ class ToDoList {
         document.getElementById("barvaPoznamky").addEventListener("input", () => {
             document.getElementById("textPoznamky").style.backgroundColor = document.getElementById("barvaPoznamky").value;
         });
+
+        this._zmenNahodneBarvu();
     }
+
+    //nastaví nahodnou barvu poznámky po zapnutí aplikace/přidání poznámky
+    _zmenNahodneBarvu(){
+
+        let barva = this._vygenerujBarvu();
+        document.getElementById("barvaPoznamky").value = barva;
+        document.getElementById("textPoznamky").style.backgroundColor = document.getElementById("barvaPoznamky").value;
+    }
+    //vygeneruje náhodnou HEX barvu
+    _vygenerujBarvu(){
+
+        let znaky = "0123456789ABCDEF";
+        let barva = "#";
+        for (let i = 0; i < 6; i++) {
+            barva += znaky[Math.floor(Math.random() * 16)];
+        }
+        return barva;
+    }
+
 
     // přidá poznámku na nástěnku
     _pridejPoznamku() {
@@ -47,6 +68,7 @@ class ToDoList {
 
             document.getElementById("textPoznamky").placeholder = "...napište nový úkol...";
             document.getElementById("textPoznamky").value = "";
+            this._zmenNahodneBarvu();
         }
     }
 

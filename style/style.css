@@ -32,4 +32,5 @@ padding: 10px;
 
 .smazPrvek:hover{
    transform: scale(110%);
+   background-color: rgb(red, green, blue);
 }
